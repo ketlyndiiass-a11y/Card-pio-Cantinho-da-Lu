@@ -37,10 +37,15 @@
     }
 
     .topo {
+      margin-bottom: 28px;
+    }
+
+    .topo-header {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
-      margin-bottom: 28px;
+      margin-bottom: 14px;
     }
 
     .logo {
@@ -54,14 +59,15 @@
     }
 
     .copy-topo h1 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       line-height: 1.2;
       color: #1f1f1f;
-      margin-bottom: 8px;
       font-weight: 800;
+      text-align: center;
     }
 
-    .copy-topo p {
+    .copy-descricao {
+      text-align: center;
       font-size: 0.95rem;
       color: #5f5f5f;
       line-height: 1.5;
@@ -74,6 +80,12 @@
 
     .carousel-wrapper {
       margin-bottom: 28px;
+    }
+
+    .carousel,
+    .prato-card {
+      will-change: transform;
+      user-select: none;
     }
 
     .carousel {
@@ -318,16 +330,20 @@
   <div class="container">
 
     <div class="topo">
-      <img class="logo" src="Cantinho Da Lu - Logo.png" alt="Logo Marmitaria">
 
-      <div class="copy-topo">
-        <h1>Marmitas saborosas com entrega rápida 🍛</h1>
+      <div class="topo-header">
+        <img class="logo" src="Cantinho Da Lu - Logo.png" alt="Logo Marmitaria">
 
-        <p>
-          Comida caseira feita na hora, pratos caprichados e entrega rápida na sua região.
-          <span class="destaque">Peça agora e receba quentinha!</span>
-        </p>
+        <div class="copy-topo">
+          <h1>Marmitas saborosas com entrega rápida 🍛</h1>
+        </div>
       </div>
+
+      <div class="copy-descricao">
+        Comida caseira feita na hora, pratos caprichados e entrega rápida na sua região.
+        <span class="destaque">Peça agora e receba quentinha!</span>
+      </div>
+
     </div>
 
     <div class="carousel-wrapper">
@@ -503,7 +519,6 @@
 
   <script>
     const carousel = document.getElementById('carousel');
-    const cards = document.querySelectorAll('.prato-card');
 
     let isDragging = false;
     let startX;
@@ -511,21 +526,28 @@
     let autoScroll;
     let moved = false;
 
+    // DUPLICA CARDS PARA LOOP INFINITO
+    carousel.innerHTML += carousel.innerHTML;
+
+    const originalWidth = carousel.scrollWidth / 2;
+
     function startAutoScroll() {
-      clearInterval(autoScroll);
+      stopAutoScroll();
 
       autoScroll = setInterval(() => {
+
         if (!isDragging) {
+
           carousel.scrollLeft += 1;
 
-          if (
-            carousel.scrollLeft >=
-            carousel.scrollWidth - carousel.clientWidth
-          ) {
+          // LOOP INFINITO SUAVE
+          if (carousel.scrollLeft >= originalWidth) {
             carousel.scrollLeft = 0;
           }
+
         }
-      }, 20);
+
+      }, 16);
     }
 
     function stopAutoScroll() {
@@ -533,11 +555,15 @@
     }
 
     function closeAllCards() {
-      cards.forEach(card => card.classList.remove('active'));
+      document.querySelectorAll('.prato-card').forEach(card => {
+        card.classList.remove('active');
+      });
     }
 
-    cards.forEach(card => {
+    document.querySelectorAll('.prato-card').forEach(card => {
+
       card.addEventListener('click', (e) => {
+
         if (moved) {
           moved = false;
           return;
@@ -553,22 +579,29 @@
 
         e.stopPropagation();
       });
+
     });
 
     document.addEventListener('click', () => {
       closeAllCards();
     });
 
+    // DESKTOP DRAG
     carousel.addEventListener('mousedown', (e) => {
+
       isDragging = true;
       moved = false;
+
       stopAutoScroll();
+
       startX = e.pageX - carousel.offsetLeft;
       scrollLeft = carousel.scrollLeft;
+
       carousel.style.cursor = 'grabbing';
     });
 
     carousel.addEventListener('mouseleave', () => {
+
       if (isDragging) {
         isDragging = false;
         startAutoScroll();
@@ -578,36 +611,52 @@
     });
 
     carousel.addEventListener('mouseup', () => {
+
       isDragging = false;
+
       startAutoScroll();
+
       carousel.style.cursor = 'grab';
     });
 
     carousel.addEventListener('mousemove', (e) => {
+
       if (!isDragging) return;
 
       e.preventDefault();
+
       moved = true;
 
       const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 1.5;
+      const walk = (x - startX) * 1.4;
 
       carousel.scrollLeft = scrollLeft - walk;
     });
 
+    // MOBILE TOUCH
     carousel.addEventListener('touchstart', () => {
+
       isDragging = true;
       moved = false;
+
       stopAutoScroll();
-    });
+
+    }, { passive: true });
 
     carousel.addEventListener('touchmove', () => {
-      moved = true;
-    });
+
+      if (isDragging) {
+        moved = true;
+      }
+
+    }, { passive: true });
 
     carousel.addEventListener('touchend', () => {
+
       isDragging = false;
+
       startAutoScroll();
+
     });
 
     startAutoScroll();
