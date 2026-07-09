@@ -92,8 +92,8 @@
       display: flex;
       gap: 14px;
       overflow-x: auto;
-      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
       padding-bottom: 8px;
       scrollbar-width: none;
       cursor: grab;
@@ -114,6 +114,10 @@
       transition: 0.3s;
       border: 2px solid #fff;
       background: #f5f5f5;
+    }
+
+    .oculto {
+      display: none;
     }
 
     .prato-card:hover {
@@ -273,12 +277,12 @@
         <img class="logo" src="Cantinho Da Lu - Logo.png" alt="Logo Marmitaria">
 
         <div class="copy-topo">
-          <h1>Marmitas saborosas com entrega rápida 🍛</h1>
+          <h1>Marmitas saborosas com entrega rápida </h1>
         </div>
       </div>
 
       <div class="copy-descricao">
-        Comida caseira feita na hora, pratos caprichados e entrega rápida na sua região.
+        Comida caseira feita na hora, marmitas caprichadas e bem servidas.
         <span class="destaque">Peça agora e receba quentinha!</span>
       </div>
 
@@ -309,14 +313,14 @@
         </div>
 
         <div class="prato-card">
-          <img src="prato6.jpg" alt="Prato 6">
+          <img src="milanesa.jpeg" alt="Prato 6">
         </div>
 
-        <div class="prato-card">
+        <div class="prato-card oculto">
           <img src="prato7.jpg" alt="Prato 7">
         </div>
 
-        <div class="prato-card">
+        <div class="prato-card oculto">
           <img src="prato8.jpg" alt="Prato 8">
         </div>
 
@@ -326,11 +330,11 @@
       <p>Clique em uma das opções abaixo para fazer seu pedido de forma rápida e prática.</p>
     </div>
 
-    <a href="https://wa.me/5599999999999" class="btn whatsapp">
+    <a href="https://w.app/lupedidoss" class="btn whatsapp">
       PEDIR NO WHATSAPP
     </a>
 
-    <a href="https://www.ifood.com.br/" class="btn ifood">
+    <a href="https://www.ifood.com.br/delivery/campo-mourao-pr/marmitaria---cantinho-da-lu-sabor-caseiro-jardim-residencial-maria-clara/a41c2875-ba6c-45c3-bd48-33d6916dd8ee?UTM_Medium=share" class="btn ifood">
       PEDIR NO IFOOD
     </a>
 
@@ -349,55 +353,80 @@
     const carousel = document.getElementById('carousel');
 
     let isDragging = false;
-    let startX;
-    let scrollLeft;
-    let autoScroll;
-    let moved = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let animationFrameId = null;
+    let lastTime = 0;
+    const speed = 1.2;
 
-    // DUPLICA CARDS PARA LOOP INFINITO
-    carousel.innerHTML += carousel.innerHTML;
+    const cards = Array.from(carousel.children);
+    carousel.append(...cards.map((card) => card.cloneNode(true)));
 
-    const originalWidth = carousel.scrollWidth / 2;
+    let originalWidth = carousel.scrollWidth / 2;
+
+    function loop(timestamp) {
+      if (!lastTime) {
+        lastTime = timestamp;
+      }
+
+      const delta = (timestamp - lastTime) / (1000 / 60);
+      lastTime = timestamp;
+
+      if (!isDragging) {
+        carousel.scrollLeft += speed * delta;
+
+        if (carousel.scrollLeft >= originalWidth) {
+          carousel.scrollLeft -= originalWidth;
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(loop);
+    }
 
     function startAutoScroll() {
-      stopAutoScroll();
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
 
-      autoScroll = setInterval(() => {
-
-        if (!isDragging) {
-
-          carousel.scrollLeft += 1;
-
-          // LOOP INFINITO SUAVE
-          if (carousel.scrollLeft >= originalWidth) {
-            carousel.scrollLeft = 0;
-          }
-
-        }
-
-      }, 16);
+      lastTime = 0;
+      animationFrameId = requestAnimationFrame(loop);
     }
 
     function stopAutoScroll() {
-      clearInterval(autoScroll);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
     }
 
-    // DESKTOP DRAG
     carousel.addEventListener('mousedown', (e) => {
-
       isDragging = true;
-      moved = false;
-
       stopAutoScroll();
 
       startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
+      startScrollLeft = carousel.scrollLeft;
 
       carousel.style.cursor = 'grabbing';
     });
 
-    carousel.addEventListener('mouseleave', () => {
+    carousel.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
 
+      e.preventDefault();
+
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.2;
+
+      carousel.scrollLeft = startScrollLeft - walk;
+    });
+
+    carousel.addEventListener('mouseup', () => {
+      isDragging = false;
+      startAutoScroll();
+      carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mouseleave', () => {
       if (isDragging) {
         isDragging = false;
         startAutoScroll();
@@ -406,53 +435,43 @@
       carousel.style.cursor = 'grab';
     });
 
-    carousel.addEventListener('mouseup', () => {
+    carousel.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) return;
 
-      isDragging = false;
+      isDragging = true;
+      stopAutoScroll();
 
-      startAutoScroll();
+      startX = e.touches[0].pageX;
+      startScrollLeft = carousel.scrollLeft;
 
-      carousel.style.cursor = 'grab';
-    });
+      carousel.style.cursor = 'grabbing';
+    }, { passive: true });
 
-    carousel.addEventListener('mousemove', (e) => {
-
-      if (!isDragging) return;
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
 
       e.preventDefault();
 
-      moved = true;
+      const x = e.touches[0].pageX;
+      const walk = x - startX;
 
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 1.4;
-
-      carousel.scrollLeft = scrollLeft - walk;
-    });
-
-    // MOBILE TOUCH
-    carousel.addEventListener('touchstart', () => {
-
-      isDragging = true;
-      moved = false;
-
-      stopAutoScroll();
-
-    }, { passive: true });
-
-    carousel.addEventListener('touchmove', () => {
-
-      if (isDragging) {
-        moved = true;
-      }
-
-    }, { passive: true });
+      carousel.scrollLeft = startScrollLeft - walk;
+    }, { passive: false });
 
     carousel.addEventListener('touchend', () => {
-
       isDragging = false;
-
       startAutoScroll();
+      carousel.style.cursor = 'grab';
+    });
 
+    carousel.addEventListener('touchcancel', () => {
+      isDragging = false;
+      startAutoScroll();
+      carousel.style.cursor = 'grab';
+    });
+
+    window.addEventListener('load', () => {
+      originalWidth = carousel.scrollWidth / 2;
     });
 
     startAutoScroll();
