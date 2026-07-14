@@ -31,6 +31,7 @@
       max-width: 520px;
       background: #ffffff;
       border-radius: 28px;
+
       padding: 22px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.08);
       overflow: hidden;
@@ -297,7 +298,679 @@
       }
     }
     
-  </style>
+    .gift-section{
+      margin:18px 0 28px;
+      text-align:center;
+    }
+
+    .gift-button{
+
+      width:100%;
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      padding:18px 22px;
+
+      border:none;
+
+      border-radius:18px;
+
+      cursor:pointer;
+
+      background:linear-gradient(135deg,#3B82F6,#2563EB);
+
+      color:#ffffff;
+
+      font-size:1.05rem;
+
+      font-weight:700;
+
+      box-shadow:0 10px 28px rgba(37,99,235,.35);
+
+      transition:.30s;
+
+      animation:pulseGift 2s infinite;
+
+    }
+
+    .gift-button:hover{
+
+      transform:translateY(-2px);
+
+      box-shadow:0 14px 34px rgba(37,99,235,.45);
+
+    }
+
+    .gift-left{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:12px;
+
+    }
+
+    .gift-icon{
+
+      font-size:24px;
+
+    }
+
+    .gift-text{
+
+      letter-spacing:.3px;
+
+    }
+
+    .gift-arrow{
+
+      width:34px;
+
+      height:34px;
+
+      border-radius:50%;
+
+      background:rgba(255,255,255,.22);
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      font-size:18px;
+
+      transition:.30s;
+
+    }
+
+    .gift-button:hover .gift-arrow{
+
+      transform:translateX(4px);
+
+      background:rgba(255,255,255,.32);
+
+    }
+
+    .gift-copy{
+
+      margin-top:14px;
+
+      font-size:.95rem;
+
+      color:#666;
+
+      line-height:1.6;
+
+    }
+
+    .gift-copy strong{
+
+      color:#2563EB;
+
+    }
+
+    @keyframes pulseGift{
+
+    0%{
+
+    transform:scale(1);
+
+    }
+
+    50%{
+
+    transform:scale(1.02);
+
+    }
+
+    100%{
+
+    transform:scale(1);
+
+    }
+
+    }
+    /* ==============================
+    MODAL PRESENTE
+    ============================== */
+
+    .gift-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(8px);
+    z-index:999999;
+    /* enable smooth hide transition */
+    opacity:0;
+    transform:translateY(0) scale(1);
+    transition: opacity 150ms ease, transform 150ms ease;
+    will-change: opacity, transform;
+
+    }
+
+    .gift-modal.show{
+
+    display:flex;
+    opacity:1;
+    transform:translateY(0) scale(1);
+    }
+
+    .gift-modal.hiding{
+    opacity:0;
+    transform:translateY(20px) scale(.98);
+    pointer-events:none;
+    }
+
+    .gift-modal-content{
+
+    width:90%;
+
+    max-width:420px;
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    padding:34px 28px;
+
+    text-align:center;
+
+    position:relative;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+
+    animation:popupGift .30s;
+
+    }
+
+    .gift-close{
+
+    position:absolute;
+
+    top:16px;
+
+    right:18px;
+
+    border:none;
+
+    background:none;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    color:#999;
+
+    }
+
+    .gift-emoji{
+
+    font-size:64px;
+
+    margin-bottom:12px;
+
+    }
+
+    .gift-modal h2{
+
+    font-size:1.35rem;
+
+    margin-bottom:18px;
+
+    color:#222;
+
+    }
+
+    .gift-modal p{
+
+    color:#666;
+
+    line-height:1.6;
+
+    margin-bottom:24px;
+
+    }
+
+    .spin-button{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#ff7a00,#ff5100);
+
+    color:#fff;
+
+    font-size:1.05rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+    box-shadow:0 10px 25px rgba(255,122,0,.30);
+
+    }
+
+    .spin-button:hover{
+
+    transform:translateY(-2px);
+
+    }
+
+    .gift-warning{
+
+    display:block;
+
+    margin-top:18px;
+
+    font-size:.85rem;
+
+    color:#888;
+
+    }
+
+    @keyframes popupGift{
+
+    from{
+
+    opacity:0;
+
+    transform:scale(.85);
+
+    }
+
+    to{
+
+    opacity:1;
+
+    transform:scale(1);
+
+    }
+
+    }
+
+    @keyframes fadeGift{
+
+    from{
+
+    opacity:0;
+
+    }
+
+    to{
+
+    opacity:1;
+
+    }
+
+    }
+
+    @keyframes wheelEnter{
+      from{opacity:0; transform:translateY(80px) scale(.92);} 
+      to{opacity:1; transform:translateY(0) scale(1);} 
+    }
+
+    @keyframes wheelExit{
+      from{opacity:1; transform:translateY(0) scale(1);} 
+      to{opacity:0; transform:translateY(80px) scale(.92);} 
+    }
+    /* ==============================
+    WHEEL SCREEN (moved inside <style>)
+    ============================== */
+
+    .wheel-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#fff;
+
+    z-index:999999;
+
+    }
+
+    .wheel-screen.show{
+
+    display:flex;
+
+    }
+
+    .wheel-screen.show{
+      animation: wheelEnter .22s ease-out forwards;
+    }
+
+    .wheel-screen.closing{
+      animation: wheelExit .22s ease-out forwards;
+    }
+
+    .wheel-container{
+
+    width:100%;
+
+    max-width:500px;
+
+    padding:25px;
+
+    text-align:center;
+
+    }
+
+    .wheel-container.pop{
+      animation: wheelPop .30s ease;
+    }
+
+    @keyframes wheelPop{
+      0%{ transform: scale(1); }
+      50%{ transform: scale(1.08); }
+      100%{ transform: scale(1); }
+    }
+
+    .wheel-container h2{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+
+    }
+
+    .wheel-container p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+    }
+
+    .wheel-area{
+
+    position:relative;
+
+    width:360px;
+
+    height:360px;
+
+    margin:auto;
+
+    }
+
+    .pointer{
+
+    position:absolute;
+
+    top:-12px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:0;
+
+    height:0;
+
+    border-left:18px solid transparent;
+
+    border-right:18px solid transparent;
+
+    border-top:32px solid #ff5a00;
+
+    z-index:20;
+
+    }
+
+    #wheelCanvas{
+
+    width:360px;
+
+    height:360px;
+
+    border-radius:50%;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+    transform-origin:50% 50%;
+    will-change: transform;
+
+    }
+
+    .spin-wheel{
+
+    margin-top:35px;
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#ff7a00,#ff5100);
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    }
+
+    .wheel-close{
+
+    position:absolute;
+
+    right:30px;
+
+    top:25px;
+
+    background:none;
+
+    border:none;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    }
+
+    /* ==================================
+       RESULTADO DO PRESENTE
+    ================================== */
+
+    .prize-result{
+        position:fixed;
+        inset:0;
+        display:none;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+        background:rgba(0,0,0,.58);
+        z-index:1000001;
+    }
+
+    .prize-result.show{
+        display:flex;
+    }
+
+    .prize-result-card{
+        position:relative;
+        width:100%;
+        max-width:420px;
+        max-height:calc(100vh - 30px);
+        overflow-y:auto;
+        padding:30px 24px;
+        border-radius:26px;
+        background:#fff;
+        text-align:center;
+        box-shadow:0 25px 70px rgba(0,0,0,.3);
+        animation:prizeResultOpen .3s ease-out;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    .prize-result-close{
+        position:absolute;
+        top:15px;
+        right:17px;
+        border:0;
+        background:transparent;
+        color:#999;
+        font-size:22px;
+        cursor:pointer;
+    }
+
+    .prize-result-emoji{
+        font-size:58px;
+        line-height:1;
+        margin-bottom:12px;
+    }
+
+    .prize-result-card h2{
+        color:#222;
+        font-size:1.6rem;
+        margin-bottom:8px;
+    }
+
+    .prize-result-label{
+        color:#777;
+        margin-bottom:5px;
+    }
+
+    .prize-result-name{
+        color:#ff5a00;
+        font-size:1.55rem;
+        line-height:1.25;
+        font-weight:800;
+        margin-bottom:22px;
+    }
+
+    .prize-expiration{
+        padding:16px;
+        border-radius:18px;
+        background:#fff4e9;
+        color:#555;
+        margin-bottom:16px;
+    }
+
+    .prize-expiration span{
+        display:block;
+        font-size:.9rem;
+        margin-bottom:4px;
+    }
+
+    .prize-expiration strong{
+        display:block;
+        color:#e34f00;
+        font-size:1.8rem;
+        letter-spacing:1px;
+    }
+
+    .prize-progress{
+        width:100%;
+        height:8px;
+        margin-top:10px;
+        border-radius:999px;
+        background:#ffd8bd;
+        overflow:hidden;
+    }
+
+    .prize-progress-bar{
+        width:100%;
+        height:100%;
+        border-radius:inherit;
+        background:linear-gradient(90deg,#ff8a00,#ff5200);
+        transform-origin:left center;
+    }
+
+    .prize-code-box{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        padding:14px 16px;
+        margin-bottom:16px;
+        border:2px dashed #ff9b55;
+        border-radius:16px;
+        background:#fffaf6;
+    }
+
+    .prize-code-box span{
+        color:#666;
+        font-size:.9rem;
+    }
+
+    .prize-code-box strong{
+        color:#222;
+        font-size:1.1rem;
+        letter-spacing:1px;
+    }
+
+    .prize-instruction{
+        color:#555;
+        font-size:.92rem;
+        line-height:1.5;
+        margin-bottom:18px;
+    }
+
+    .redeem-prize{
+        width:100%;
+        border:0;
+        padding:17px;
+        border-radius:18px;
+        background:linear-gradient(135deg,#00c853,#00a844);
+        color:#fff;
+        font-size:1rem;
+        font-weight:800;
+        cursor:pointer;
+        box-shadow:0 10px 25px rgba(0,200,83,.3);
+    }
+
+    .prize-result-card small{
+        display:block;
+        margin-top:14px;
+        color:#999;
+        font-size:.78rem;
+        line-height:1.4;
+    }
+
+    @keyframes prizeResultOpen{
+        from{
+            opacity:0;
+            transform:translateY(35px) scale(.94);
+        }
+
+        to{
+            opacity:1;
+            transform:translateY(0) scale(1);
+        }
+    }
+    </style>
+
+    
 </head>
 <body>
 
@@ -369,6 +1042,34 @@
     <a href="https://www.ifood.com.br/delivery/campo-mourao-pr/marmitaria---cantinho-da-lu-sabor-caseiro-jardim-residencial-maria-clara/a41c2875-ba6c-45c3-bd48-33d6916dd8ee?UTM_Medium=share" class="btn ifood">
       PEDIR NO IFOOD
     </a>
+
+    <div class="gift-section">
+
+      <button id="openGift" class="gift-button">
+
+        <div class="gift-left">
+
+          <span class="gift-icon">🎁</span>
+
+          <span class="gift-text">
+            GARANTIR MEU PRESENTE
+          </span>
+
+        </div>
+
+        <span class="gift-arrow">
+          →
+        </span>
+
+      </button>
+
+      <div class="gift-copy">
+
+        <strong>Ganhe um presente ou desconto exclusivo</strong>
+        no seu primeiro pedido.
+
+        <br><br>
+    </div>
 
     <div class="cupom">
       <h3>🎁 Cupom De Desconto no iFood</h3>
@@ -500,9 +1201,8 @@
       if (isDragging) {
         isDragging = false;
         startAutoScroll();
-      }
-
-      carousel.style.cursor = 'grab';
+        }
+        carousel.style.cursor = 'grab';
     });
 
     carousel.addEventListener('touchstart', (e) => {
@@ -545,7 +1245,701 @@
     });
 
     startAutoScroll();
+
+    // Modal Presente - funcionalidade etapa 2 + roleta (ETAPA 3 aprimorada)
+    document.addEventListener('DOMContentLoaded', function () {
+      const openGift = document.getElementById("openGift");
+      const giftModal = document.getElementById("giftModal");
+      const closeGift = document.getElementById("closeGift");
+
+      if (openGift) {
+        openGift.addEventListener("click", () => {
+          if (giftModal) giftModal.classList.add("show");
+        });
+      }
+
+      if (closeGift) {
+        closeGift.addEventListener("click", () => {
+          if (giftModal) giftModal.classList.remove("show");
+        });
+      }
+
+      if (giftModal) {
+        giftModal.addEventListener("click", (e) => {
+          if (e.target === giftModal) {
+            giftModal.classList.remove("show");
+          }
+        });
+      }
+
+      const wheelScreen = document.getElementById("wheelScreen");
+      const closeWheel = document.getElementById("closeWheel");
+      const spinModalButton = document.getElementById("spinButton");
+      const spinWheelButton = document.getElementById("spinWheel");
+      const wheelCanvas = document.getElementById('wheelCanvas');
+      const wheelContainer = document.querySelector('.wheel-container');
+      const prizeResult = document.getElementById('prizeResult');
+      const closePrizeResult = document.getElementById('closePrizeResult');
+      const prizeResultEmoji = document.getElementById('prizeResultEmoji');
+      const prizeResultName = document.getElementById('prizeResultName');
+      const prizeCountdown = document.getElementById('prizeCountdown');
+      const prizeProgressBar = document.getElementById('prizeProgressBar');
+      const prizeCodeEl = document.getElementById('prizeCode');
+      const redeemPrize = document.getElementById('redeemPrize');
+      const prizeResultCard = document.querySelector('.prize-result-card');
+      const REDEEM_WHATSAPP_URL = 'https://w.app/lupedidoss';
+
+      const giftPrizes = [
+          {
+              id: "free_delivery",
+              name: "Entrega Grátis",
+              emoji: "🛵",
+              probability: 65
+          },
+          {
+              id: "discount_2",
+              name: "R$ 2 de Desconto",
+              emoji: "💵",
+              probability: 20
+          },
+          {
+              id: "discount_5",
+              name: "R$ 5 de Desconto",
+              emoji: "💰",
+              probability: 8
+          },
+          {
+              id: "meal_p",
+              name: "Marmita P Grátis",
+              emoji: "🍛",
+              probability: 4
+          },
+          {
+              id: "meal_m",
+              name: "Marmita M Grátis",
+              emoji: "🍛",
+              probability: 2
+          },
+          {
+              id: "meal_g",
+              name: "Marmita G Grátis",
+              emoji: "🍛",
+              probability: 1
+          }
+      ];
+
+      const wheelPrizes = [
+          giftPrizes[0],
+          giftPrizes[1],
+          giftPrizes[0],
+          giftPrizes[3],
+          giftPrizes[0],
+          giftPrizes[2],
+          giftPrizes[4],
+          giftPrizes[5]
+      ];
+
+      const SPIN_WHEEL_API_URL = "https://vibhzaaqmzhvnaefwbwf.supabase.co/functions/v1/spin-wheel";
+      const VISITOR_STORAGE_KEY = "cantinho_da_lu_visitor_id";
+      let prizeExpiresAt = null;
+      let prizeCountdownInterval = null;
+      let prizeCountdownDurationMs = null;
+      let currentPrize = null;
+      let serverSpinResult = null;
+      let isWheelSpinning = false;
+
+      function createFallbackVisitorId() {
+          const randomPart = Array.from(
+              crypto.getRandomValues(new Uint8Array(24))
+          )
+              .map((value) => value.toString(16).padStart(2, "0"))
+              .join("");
+
+          return `visitor-${Date.now()}-${randomPart}`;
+      }
+
+      function getOrCreateVisitorId() {
+          let visitorId = null;
+
+          try {
+              visitorId = localStorage.getItem(VISITOR_STORAGE_KEY);
+          } catch {
+              visitorId = null;
+          }
+
+          if (
+              typeof visitorId === "string" &&
+              visitorId.length >= 20 &&
+              visitorId.length <= 200
+          ) {
+              return visitorId;
+          }
+
+          visitorId =
+              typeof crypto.randomUUID === "function"
+                  ? `visitor-${crypto.randomUUID()}`
+                  : createFallbackVisitorId();
+
+          try {
+              localStorage.setItem(VISITOR_STORAGE_KEY, visitorId);
+          } catch {
+              // Ignore storage errors in restricted environments.
+          }
+
+          return visitorId;
+      }
+
+      async function requestServerPrize() {
+          const visitorId = getOrCreateVisitorId();
+
+          const response = await fetch(
+              SPIN_WHEEL_API_URL,
+              {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                      visitorId
+                  })
+              }
+          );
+
+          let result;
+
+          try {
+              result = await response.json();
+          } catch {
+              throw new Error("O servidor retornou uma resposta inválida.");
+          }
+
+          if (!response.ok) {
+              throw new Error(
+                  result?.message || "Não foi possível consultar o presente."
+              );
+          }
+
+          return result;
+      }
+
+      function getWheelIndexesForPrize(prizeCode) {
+          const prizeIndexes = {
+              FREE_DELIVERY: [0, 2, 4],
+              DISCOUNT_2: [1],
+              MEAL_P: [3],
+              DISCOUNT_5: [5],
+              MEAL_M: [6],
+              MEAL_G: [7]
+          };
+
+          return prizeIndexes[prizeCode] || [];
+      }
+
+      function chooseWheelIndex(prizeCode) {
+          const indexes = getWheelIndexesForPrize(prizeCode);
+
+          if (indexes.length === 0) {
+              throw new Error(`Prêmio desconhecido: ${prizeCode}`);
+          }
+
+          return indexes[Math.floor(Math.random() * indexes.length)];
+      }
+
+      function formatNextAttempt(nextEligibleAt) {
+          const date = new Date(nextEligibleAt);
+
+          return new Intl.DateTimeFormat(
+              "pt-BR",
+              {
+                  dateStyle: "full",
+                  timeStyle: "short"
+              }
+          ).format(date);
+      }
+
+      function handleSpinDenied(result) {
+          isWheelSpinning = false;
+          spinWheelButton.disabled = false;
+          spinWheelButton.textContent = "GIRAR A ROLETA";
+
+          if (result?.reason === "COOLDOWN_ACTIVE") {
+              const nextAttempt = formatNextAttempt(result.next_eligible_at);
+
+              alert(
+                  `Você já utilizou sua tentativa desta semana.\n\nNova tentativa disponível em:\n${nextAttempt}`
+              );
+
+              return;
+          }
+
+          alert(result?.message || "Não foi possível liberar sua tentativa.");
+      }
+
+      function updatePrizeCountdown() {
+          const remaining = Math.max(
+              0,
+              prizeExpiresAt - Date.now()
+          );
+
+          const totalSeconds = Math.floor(remaining / 1000);
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+
+          if (prizeCountdown) {
+              prizeCountdown.textContent =
+                  `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+          }
+
+          if (prizeProgressBar) {
+              const progress = prizeCountdownDurationMs
+                  ? Math.max(0, remaining / prizeCountdownDurationMs)
+                  : 0;
+              prizeProgressBar.style.transform = `scaleX(${progress})`;
+          }
+
+          if (remaining <= 0) {
+              clearInterval(prizeCountdownInterval);
+
+              if (prizeCountdown) {
+                  prizeCountdown.textContent = "EXPIRADO";
+              }
+
+              if (redeemPrize) {
+                  redeemPrize.disabled = true;
+                  redeemPrize.textContent = "PRESENTE EXPIRADO";
+              }
+          }
+      }
+
+      function startServerPrizeCountdown(expiresAtIso) {
+          clearInterval(prizeCountdownInterval);
+
+          const expirationTime = new Date(expiresAtIso).getTime();
+
+          if (!Number.isFinite(expirationTime)) {
+              throw new Error("Validade do prêmio inválida.");
+          }
+
+          prizeExpiresAt = expirationTime;
+          prizeCountdownDurationMs = Math.max(1000, expirationTime - Date.now());
+
+          updatePrizeCountdown();
+
+          prizeCountdownInterval = setInterval(
+              updatePrizeCountdown,
+              1000
+          );
+      }
+
+      function closePrizeResultPanel() {
+          if (prizeResult) {
+              prizeResult.classList.remove('show');
+          }
+      }
+
+      function showServerPrizeResult(result) {
+          if (prizeResultEmoji) {
+              prizeResultEmoji.textContent = result.prize.emoji || '🎉';
+          }
+
+          if (prizeResultName) {
+              prizeResultName.textContent = result.prize.name;
+          }
+
+          if (prizeCodeEl) {
+              prizeCodeEl.textContent = result.coupon_code || '';
+          }
+
+          if (redeemPrize) {
+              redeemPrize.disabled = false;
+              redeemPrize.textContent = 'RESGATAR NO WHATSAPP';
+          }
+
+          if (wheelScreen) {
+              wheelScreen.classList.remove('show');
+          }
+
+          if (prizeResult) {
+              prizeResult.classList.add('show');
+          }
+
+          startServerPrizeCountdown(result.expires_at);
+      }
+
+      if (closePrizeResult) {
+          closePrizeResult.addEventListener('click', closePrizeResultPanel);
+      }
+
+      if (prizeResult) {
+          prizeResult.addEventListener('click', (e) => {
+              if (e.target === prizeResult) {
+                  closePrizeResultPanel();
+              }
+          });
+      }
+
+      if (prizeResultCard) {
+          prizeResultCard.addEventListener('click', (e) => {
+              e.stopPropagation();
+          });
+      }
+
+      if (redeemPrize) {
+          redeemPrize.addEventListener('click', () => {
+              if (!serverSpinResult?.prize) return;
+
+              const message = [
+                  "Olá! Ganhei um Presente de Boas-vindas no site da Marmitaria Cantinho da Lu.",
+                  "",
+                  `Meu prêmio foi: ${serverSpinResult.prize.name}`,
+                  `Meu código é: ${serverSpinResult.coupon_code}`,
+                  "",
+                  "Estou enviando o print da tela para validação."
+              ].join("\n");
+              const url = `${REDEEM_WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
+              window.open(url, '_blank', 'noopener,noreferrer');
+          });
+      }
+
+      // open wheel screen after modal hides with smooth 150ms transition
+      if (spinModalButton) {
+        spinModalButton.addEventListener('click', () => {
+          if (!giftModal) return;
+          // start hiding animation
+          giftModal.classList.add('hiding');
+          const onHide = (e) => {
+            if (e.propertyName !== 'opacity') return;
+            giftModal.removeEventListener('transitionend', onHide);
+            giftModal.classList.remove('show', 'hiding');
+            // open wheel immediately
+            if (wheelScreen) {
+              wheelScreen.classList.add('show');
+              // trigger enter animation via CSS
+              wheelScreen.addEventListener('animationend', function onEnter() {
+                wheelScreen.removeEventListener('animationend', onEnter);
+              });
+            }
+          };
+          giftModal.addEventListener('transitionend', onHide);
+        });
+      }
+
+      if (closeWheel) {
+        closeWheel.addEventListener('click', () => {
+          if (!wheelScreen) return;
+          // animate exit
+          wheelScreen.classList.add('closing');
+          wheelScreen.style.animation = 'wheelExit .22s ease-out forwards';
+          wheelScreen.addEventListener('animationend', function onExit() {
+            wheelScreen.removeEventListener('animationend', onExit);
+            wheelScreen.classList.remove('show', 'closing');
+            wheelScreen.style.animation = '';
+          });
+        });
+      }
+
+      // Desenhar roleta no canvas (apenas visual)
+      function drawWheel() {
+        const canvas = wheelCanvas;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const size = 360;
+        canvas.width = size * dpr;
+        canvas.height = size * dpr;
+        canvas.style.width = size + 'px';
+        canvas.style.height = size + 'px';
+        canvas.style.transform = 'rotate(0deg)';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const cx = size / 2;
+        const cy = size / 2;
+        const radius = size / 2 - 10; // slightly smaller to allow thicker white rim
+        const labels = [
+          '🛵 Frete Grátis',
+          '💵 R$2 OFF',
+          '🛵 Frete Grátis',
+          '🍛 Marmita P',
+          '🛵 Frete Grátis',
+          '💵 R$5 OFF',
+          '🍛 Marmita M',
+          '🍛 Marmita G'
+        ];
+        const colors = ['#ff7a00', '#ffb000'];
+        const slices = labels.length;
+        const angle = (Math.PI * 2) / slices;
+        ctx.clearRect(0, 0, size, size);
+
+        // outer glow / rim
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius + 8, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(cx, cy, radius, cx, cy, radius + 8);
+        grad.addColorStop(0, 'rgba(255,255,255,0.06)');
+        grad.addColorStop(1, 'rgba(255,255,255,0.0)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Slices
+        for (let i = 0; i < slices; i++) {
+          const start = -Math.PI / 2 + i * angle;
+          const end = start + angle;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, radius, start, end, false);
+          ctx.closePath();
+          ctx.fillStyle = colors[i % 2];
+          ctx.fill();
+          // thin white separators
+          ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          // Texto
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(start + angle / 2);
+          ctx.textAlign = 'right';
+          ctx.fillStyle = '#ffffff';
+          const fontSize = 14;
+          ctx.font = `700 ${fontSize}px Poppins, sans-serif`;
+          const text = labels[i];
+          ctx.fillText(text, radius - 18, 6);
+          ctx.restore();
+        }
+
+        // white center (15% smaller)
+        ctx.beginPath();
+        ctx.fillStyle = '#ffffff';
+        ctx.arc(cx, cy, 42 * 0.85, 0, Math.PI * 2);
+        ctx.fill();
+        // subtle inner stroke
+        ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      drawWheel();
+
+      // Spin animation using requestAnimationFrame
+      function startExistingWheelAnimation(winningIndex, onComplete) {
+        const slices = 8;
+        const baseRot = 6 + Math.floor(Math.random() * 3); // 6-8 full rotations
+        const sliceAngle = 360 / slices;
+        const targetOffset = (360 - ((winningIndex + 0.5) * sliceAngle) % 360) % 360;
+        const totalDeg = baseRot * 360 + targetOffset;
+
+        const duration = 5500;
+        const start = performance.now();
+        const accelPortion = 0.2, constPortion = 0.6, decelPortion = 0.2;
+        const accelDur = duration * accelPortion;
+        const constDur = duration * constPortion;
+        const decelDur = duration * decelPortion;
+
+        const canvasEl = wheelCanvas;
+
+        function frame(now) {
+          const elapsed = now - start;
+          if (elapsed >= duration) {
+            canvasEl.style.transform = `rotate(${totalDeg}deg)`;
+            // pop animation on container
+            if (wheelContainer) {
+              wheelContainer.classList.add('pop');
+              wheelContainer.style.transition = '';
+              wheelContainer.addEventListener('animationend', function onPop() {
+                wheelContainer.removeEventListener('animationend', onPop);
+                wheelContainer.classList.remove('pop');
+              });
+            }
+
+            setTimeout(() => {
+              if (typeof onComplete === 'function') {
+                onComplete();
+              }
+
+              spinWheelButton.disabled = false;
+              spinWheelButton.textContent = 'GIRAR A ROLETA';
+              isWheelSpinning = false;
+            }, 350);
+
+            return;
+          }
+
+          let rotFrac = 0;
+          if (elapsed < accelDur) {
+            const p = elapsed / accelDur;
+            rotFrac = accelPortion * (p * p);
+          } else if (elapsed < accelDur + constDur) {
+            const p = (elapsed - accelDur) / constDur;
+            rotFrac = accelPortion + constPortion * p;
+          } else {
+            const p = (elapsed - accelDur - constDur) / decelDur;
+            rotFrac = accelPortion + constPortion + decelPortion * (1 - Math.pow(1 - p, 3));
+          }
+
+          const currentDeg = totalDeg * rotFrac;
+          canvasEl.style.transform = `rotate(${currentDeg}deg)`;
+          requestAnimationFrame(frame);
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      if (spinWheelButton) {
+        spinWheelButton.addEventListener('click', async () => {
+          if (isWheelSpinning) return;
+
+          isWheelSpinning = true;
+          spinWheelButton.disabled = true;
+          spinWheelButton.textContent = 'VALIDANDO PRESENTE...';
+
+          try {
+            const result = await requestServerPrize();
+
+            if (!result?.ok) {
+              handleSpinDenied(result);
+              return;
+            }
+
+            serverSpinResult = result;
+            const winningIndex = chooseWheelIndex(result.prize.code);
+            spinWheelButton.textContent = 'GIRANDO...';
+
+            startExistingWheelAnimation(winningIndex, () => {
+              showServerPrizeResult(result);
+            });
+          } catch (error) {
+            console.error('Erro ao solicitar prêmio:', error);
+
+            alert(
+              error instanceof Error
+                ? error.message
+                : 'Não foi possível consultar seu presente. Tente novamente.'
+            );
+
+            isWheelSpinning = false;
+            spinWheelButton.disabled = false;
+            spinWheelButton.textContent = 'GIRAR A ROLETA';
+          }
+        });
+      }
+    });
   </script>
 
-</body>
+  <!-- Modal Presente -->
+
+  <div id="giftModal" class="gift-modal">
+
+    <div class="gift-modal-content">
+
+      <button
+        class="gift-close"
+        id="closeGift">
+        ✕
+      </button>
+
+      <div class="gift-emoji">
+
+        🎁
+
+      </div>
+
+      
+      <h2>
+
+        PRESENTE DE BOAS-VINDAS
+
+      </h2>
+
+      <p>
+
+        Gire a roleta e descubra qual presente você vai ganhar hoje.
+
+      </p>
+
+      <button
+        id="spinButton"
+        class="spin-button">
+
+        🎲 GIRAR AGORA
+
+      </button>
+
+      <span class="gift-warning">
+
+        Válido somente para pedidos realizados pelo WhatsApp.
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <div id="wheelScreen" class="wheel-screen">
+
+    <div class="wheel-container">
+
+      <button id="closeWheel" class="wheel-close">✕</button>
+
+      <h2>🎯 Gire a Roleta</h2>
+
+      <p>Hoje você vai ganhar um presente exclusivo.</p>
+
+      <div class="wheel-area">
+
+        <div class="pointer"></div>
+
+        <canvas id="wheelCanvas" width="360" height="360"></canvas>
+
+      </div>
+
+      <button id="spinWheel" class="spin-wheel">GIRAR A ROLETA</button>
+
+    </div>
+
+  </div>
+
+  <div id="prizeResult" class="prize-result">
+
+    <div class="prize-result-card">
+
+      <button id="closePrizeResult" class="prize-result-close" aria-label="Fechar">✕</button>
+
+      <div class="prize-result-emoji" id="prizeResultEmoji">🎉</div>
+
+      <h2>PARABÉNS!</h2>
+
+      <p class="prize-result-label">Você ganhou:</p>
+
+      <div class="prize-result-name" id="prizeResultName">Entrega Grátis</div>
+
+      <div class="prize-expiration">
+
+        <span>⏰ Seu presente expira em:</span>
+
+        <strong id="prizeCountdown">59:59</strong>
+
+        <div class="prize-progress">
+          <div id="prizeProgressBar" class="prize-progress-bar"></div>
+        </div>
+
+      </div>
+
+      <div class="prize-code-box">
+
+        <span>Seu código:</span>
+
+        <strong id="prizeCode">LU-0000</strong>
+
+      </div>
+
+      <p class="prize-instruction">📸 Tire um print desta tela e envie pelo WhatsApp para validar seu presente.</p>
+
+      <button id="redeemPrize" class="redeem-prize">RESGATAR NO WHATSAPP</button>
+
+      <small>Válido exclusivamente para pedidos realizados pelo WhatsApp.</small>
+
+    </div>
+
+  </div>
+
+  </body>
 </html>
