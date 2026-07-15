@@ -868,6 +868,18 @@
         margin-bottom:22px;
     }
 
+    .prize-result-description{
+        display:none;
+        margin:-10px 0 20px;
+        color:#666;
+        font-size:.9rem;
+        line-height:1.45;
+    }
+
+    .prize-result-description.show{
+        display:block;
+    }
+
     .prize-expiration{
         padding:16px;
         border-radius:18px;
@@ -1282,12 +1294,13 @@
       const closePrizeResult = document.getElementById('closePrizeResult');
       const prizeResultEmoji = document.getElementById('prizeResultEmoji');
       const prizeResultName = document.getElementById('prizeResultName');
+      const prizeResultDescription = document.getElementById('prizeResultDescription');
       const prizeCountdown = document.getElementById('prizeCountdown');
       const prizeProgressBar = document.getElementById('prizeProgressBar');
       const prizeCodeEl = document.getElementById('prizeCode');
       const redeemPrize = document.getElementById('redeemPrize');
       const prizeResultCard = document.querySelector('.prize-result-card');
-      const REDEEM_WHATSAPP_URL = 'https://w.app/lupedidoss';
+      const REDEEM_WHATSAPP_URL = 'https://w.app/luroleta';
 
       const giftPrizes = [
           {
@@ -1321,9 +1334,9 @@
               probability: 2
           },
           {
-              id: "meal_g",
-              name: "Marmita G Grátis",
-              emoji: "🍛",
+              id: "coke_can",
+              name: "Coca-Cola Lata",
+              emoji: "🥤",
               probability: 1
           }
       ];
@@ -1429,7 +1442,7 @@
               MEAL_P: [3],
               DISCOUNT_5: [5],
               MEAL_M: [6],
-              MEAL_G: [7]
+              COKE_CAN: [7]
           };
 
           return prizeIndexes[prizeCode] || [];
@@ -1544,6 +1557,18 @@
 
           if (prizeResultName) {
               prizeResultName.textContent = result.prize.name;
+          }
+
+          const description = result?.prize?.description?.trim() || "";
+
+          if (prizeResultDescription) {
+              if (description) {
+                  prizeResultDescription.textContent = description;
+                  prizeResultDescription.classList.add("show");
+              } else {
+                  prizeResultDescription.textContent = "";
+                  prizeResultDescription.classList.remove("show");
+              }
           }
 
           if (prizeCodeEl) {
@@ -1662,7 +1687,7 @@
           '🛵 Frete Grátis',
           '💵 R$5 OFF',
           '🍛 Marmita M',
-          '🍛 Marmita G'
+          '🥤 Coca-Cola Lata'
         ];
         const colors = ['#ff7a00', '#ffb000'];
         const slices = labels.length;
@@ -1910,6 +1935,7 @@
       <p class="prize-result-label">Você ganhou:</p>
 
       <div class="prize-result-name" id="prizeResultName">Entrega Grátis</div>
+      <p id="prizeResultDescription" class="prize-result-description"></p>
 
       <div class="prize-expiration">
 
