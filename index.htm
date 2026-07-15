@@ -1287,12 +1287,31 @@
 
     // Modal Presente - funcionalidade etapa 2 + roleta (ETAPA 3 aprimorada)
     document.addEventListener('DOMContentLoaded', function () {
+      function trackMetaEvent(eventType, eventName, parameters = {}) {
+          if (typeof window.fbq !== "function") {
+              return;
+          }
+
+          if (eventType === "standard") {
+              window.fbq("track", eventName, parameters);
+              return;
+          }
+
+          window.fbq("trackCustom", eventName, parameters);
+      }
+
       const openGift = document.getElementById("openGift");
       const giftModal = document.getElementById("giftModal");
       const closeGift = document.getElementById("closeGift");
+      const whatsappButton = document.querySelector('a.btn.whatsapp');
+      const ifoodButton = document.querySelector('a.btn.ifood');
 
       if (openGift) {
         openGift.addEventListener("click", () => {
+          trackMetaEvent("custom", "WheelOpen", {
+            source: "welcome_gift_button"
+          });
+
           if (giftModal) giftModal.classList.add("show");
         });
       }
@@ -1300,6 +1319,24 @@
       if (closeGift) {
         closeGift.addEventListener("click", () => {
           if (giftModal) giftModal.classList.remove("show");
+        });
+      }
+
+      if (whatsappButton) {
+        whatsappButton.addEventListener("click", () => {
+          trackMetaEvent("custom", "WhatsAppClick", {
+            button_location: "main_order_button",
+            destination: "whatsapp"
+          });
+        });
+      }
+
+      if (ifoodButton) {
+        ifoodButton.addEventListener("click", () => {
+          trackMetaEvent("custom", "iFoodClick", {
+            button_location: "main_order_button",
+            destination: "ifood"
+          });
         });
       }
 
@@ -1586,6 +1623,11 @@
               prizeResultName.textContent = result.prize.name;
           }
 
+          trackMetaEvent("custom", "PrizeWon", {
+              prize_code: result?.prize?.code || "",
+              prize_name: result?.prize?.name || ""
+          });
+
           const description = result?.prize?.description?.trim() || "";
 
           if (prizeResultDescription) {
@@ -1639,6 +1681,16 @@
       if (redeemPrize) {
           redeemPrize.addEventListener('click', () => {
               if (!serverSpinResult?.prize) return;
+
+              trackMetaEvent("standard", "Contact", {
+                  content_name: serverSpinResult?.prize?.name || "Presente da roleta",
+                  content_category: "Prize Redemption"
+              });
+
+              trackMetaEvent("custom", "PrizeWhatsAppClick", {
+                  prize_code: serverSpinResult?.prize?.code || "",
+                  prize_name: serverSpinResult?.prize?.name || ""
+              });
 
               const message = [
                   "Olá! Ganhei um Presente de Boas-vindas no site da Marmitaria Cantinho da Lu.",
@@ -1838,6 +1890,10 @@
       if (spinWheelButton) {
         spinWheelButton.addEventListener('click', async () => {
           if (isWheelSpinning) return;
+
+          trackMetaEvent("custom", "SpinStarted", {
+            source: "prize_wheel"
+          });
 
           isWheelSpinning = true;
           spinWheelButton.disabled = true;
