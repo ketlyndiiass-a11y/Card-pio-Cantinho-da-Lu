@@ -6,7 +6,7 @@ project_id = "P_gina_Card_pio"
 
 [api]
 enabled = true
-# Port to use for the API URL.
+# Port to use the API URL.
 port = 54321
 # Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
 # endpoints. `public` and `graphql_public` schemas are included by default.
@@ -215,6 +215,9 @@ web3 = 30
 # enabled = true
 # provider = "hcaptcha"
 # secret = ""
+
+[functions.track-event]
+verify_jwt = false
 
 [auth.email]
 # Allow/disallow new user signups via email to your project.

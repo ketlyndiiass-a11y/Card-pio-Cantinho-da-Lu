@@ -1287,6 +1287,70 @@
 
     // Modal Presente - funcionalidade etapa 2 + roleta (ETAPA 3 aprimorada)
     document.addEventListener('DOMContentLoaded', function () {
+      const TRACK_EVENT_API_URL =
+          "https://vibhzaaqmzhvnaefwbwf.supabase.co/functions/v1/track-event";
+      let hasTrackedPageView = false;
+
+      function getUtmValue(name) {
+          const params = new URLSearchParams(window.location.search);
+          return params.get(name) || "";
+      }
+
+      async function trackAnalyticsEvent(eventName, metadata = {}, options = {}) {
+          const visitorId = getOrCreateVisitorId();
+          const isLocalEnv = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+          const shouldKeepAlive = Boolean(
+              options.keepalive ||
+              ["whatsapp_click", "ifood_click", "prize_whatsapp_click"].includes(eventName)
+          );
+          const controller = new AbortController();
+          const timeoutId = window.setTimeout(() => controller.abort(), 4000);
+          const payload = {
+              eventName,
+              visitorId,
+              campaignSlug: "welcome-wheel",
+              prizeCode: typeof options.prizeCode === "string" && options.prizeCode.trim()
+                  ? options.prizeCode
+                  : null,
+              metadata: {
+                  ...metadata,
+                  page_path: window.location.pathname,
+                  referrer: document.referrer || "",
+                  utm_source: getUtmValue("utm_source"),
+                  utm_medium: getUtmValue("utm_medium"),
+                  utm_campaign: getUtmValue("utm_campaign"),
+                  utm_content: getUtmValue("utm_content"),
+                  utm_term: getUtmValue("utm_term")
+              }
+          };
+
+          try {
+              const response = await fetch(TRACK_EVENT_API_URL, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(payload),
+                  keepalive: shouldKeepAlive,
+                  signal: controller.signal
+              });
+
+              if (!response.ok) {
+                  throw new Error(`Analytics request failed with status ${response.status}`);
+              }
+
+              return true;
+          } catch (error) {
+              if (isLocalEnv) {
+                  console.warn("[analytics] falha ao registrar evento", eventName, error);
+              }
+
+              return false;
+          } finally {
+              window.clearTimeout(timeoutId);
+          }
+      }
+
       function trackMetaEvent(eventType, eventName, parameters = {}) {
           if (typeof window.fbq !== "function") {
               return;
@@ -1306,8 +1370,19 @@
       const whatsappButton = document.querySelector('a.btn.whatsapp');
       const ifoodButton = document.querySelector('a.btn.ifood');
 
+      if (!hasTrackedPageView) {
+        hasTrackedPageView = true;
+        trackAnalyticsEvent("page_view", {
+          page_title: document.title
+        });
+      }
+
       if (openGift) {
         openGift.addEventListener("click", () => {
+          trackAnalyticsEvent("wheel_open", {
+            source: "welcome_gift_button"
+          });
+
           trackMetaEvent("custom", "WheelOpen", {
             source: "welcome_gift_button"
           });
@@ -1324,6 +1399,10 @@
 
       if (whatsappButton) {
         whatsappButton.addEventListener("click", () => {
+          trackAnalyticsEvent("whatsapp_click", {
+            button_location: "main_order_button"
+          });
+
           trackMetaEvent("custom", "WhatsAppClick", {
             button_location: "main_order_button",
             destination: "whatsapp"
@@ -1333,6 +1412,10 @@
 
       if (ifoodButton) {
         ifoodButton.addEventListener("click", () => {
+          trackAnalyticsEvent("ifood_click", {
+            button_location: "main_order_button"
+          });
+
           trackMetaEvent("custom", "iFoodClick", {
             button_location: "main_order_button",
             destination: "ifood"
@@ -1623,6 +1706,16 @@
               prizeResultName.textContent = result.prize.name;
           }
 
+          trackAnalyticsEvent(
+              "prize_won",
+              {
+                  prize_name: result.prize.name
+              },
+              {
+                  prizeCode: result.prize.code
+              }
+          );
+
           trackMetaEvent("custom", "PrizeWon", {
               prize_code: result?.prize?.code || "",
               prize_name: result?.prize?.name || ""
@@ -1681,6 +1774,17 @@
       if (redeemPrize) {
           redeemPrize.addEventListener('click', () => {
               if (!serverSpinResult?.prize) return;
+
+              trackAnalyticsEvent(
+                  "prize_whatsapp_click",
+                  {
+                      button_location: "prize_result",
+                      prize_name: serverSpinResult?.prize?.name || ""
+                  },
+                  {
+                      prizeCode: serverSpinResult?.prize?.code || null
+                  }
+              );
 
               trackMetaEvent("standard", "Contact", {
                   content_name: serverSpinResult?.prize?.name || "Presente da roleta",
@@ -1891,7 +1995,7 @@
         spinWheelButton.addEventListener('click', async () => {
           if (isWheelSpinning) return;
 
-          trackMetaEvent("custom", "SpinStarted", {
+          trackAnalyticsEvent("spin_started", {
             source: "prize_wheel"
           });
 
