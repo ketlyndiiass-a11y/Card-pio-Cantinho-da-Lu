@@ -90,6 +90,15 @@
       line-height: 1.5;
     }
 
+    .hero-location {
+      margin: 6px 0 0;
+      font-size: 0.88rem;
+      color: rgba(70, 70, 70, 0.65);
+      font-weight: 500;
+      line-height: 1.3;
+      text-align: center;
+    }
+
     .destaque {
       color: #ff5a00;
       font-weight: 700;
@@ -299,6 +308,14 @@
       font-size: 0.82rem;
     }
 
+    .footer-address {
+      margin: 4px 0 0;
+      font-size: 0.78rem;
+      color: rgba(90, 90, 90, 0.6);
+      line-height: 1.4;
+      text-align: center;
+    }
+
     @media (max-width: 480px) {
       .copy-topo h1 {
         font-size: 1.25rem;
@@ -336,7 +353,7 @@
 
       cursor:pointer;
 
-      background:linear-gradient(135deg,#3B82F6,#2563EB);
+      background:linear-gradient(135deg, #ff7a00, #ff5200);
 
       color:#ffffff;
 
@@ -344,7 +361,7 @@
 
       font-weight:700;
 
-      box-shadow:0 10px 28px rgba(37,99,235,.35);
+      box-shadow:0 10px 28px rgba(255, 122, 0, 0.28);
 
       transition:.30s;
 
@@ -356,7 +373,7 @@
 
       transform:translateY(-2px);
 
-      box-shadow:0 14px 34px rgba(37,99,235,.45);
+      box-shadow:0 14px 34px rgba(255, 82, 0, 0.34);
 
     }
 
@@ -367,18 +384,24 @@
       align-items:center;
 
       gap:12px;
+      flex: 1;
+      min-width: 0;
 
     }
 
     .gift-icon{
 
       font-size:24px;
+      flex-shrink:0;
 
     }
 
     .gift-text{
 
       letter-spacing:.3px;
+      line-height:1.25;
+      white-space:normal;
+      text-align:left;
 
     }
 
@@ -424,9 +447,10 @@
 
     }
 
-    .gift-copy strong{
+    .gift-copy .gift-copy-highlight{
 
-      color:#2563EB;
+      color:#ff5a00;
+      font-weight:700;
 
     }
 
@@ -1022,6 +1046,7 @@
 
         <div class="copy-topo">
           <h1>Marmitas saborosas com entrega rápida </h1>
+          <p class="hero-location">📍 Campo Mourão - PR</p>
         </div>
       </div>
 
@@ -1091,7 +1116,7 @@
           <span class="gift-icon">🎁</span>
 
           <span class="gift-text">
-            GARANTIR MEU PRESENTE
+            GARANTIR DESCONTO EXCLUSIVO
           </span>
 
         </div>
@@ -1104,8 +1129,7 @@
 
       <div class="gift-copy">
 
-        <strong>Ganhe um presente ou desconto exclusivo</strong>
-        no seu primeiro pedido.
+        Gire a roleta e receba um <span class="gift-copy-highlight">desconto ou promoção exclusiva</span> no seu primeiro pedido.
 
         <br><br>
     </div>
@@ -1155,6 +1179,7 @@
     </div>
     <div class="rodape">
       Marmitaria Cantinho da Lu © 2026
+      <div class="footer-address">Av. Ney Braga, 472</div>
     </div>
 
   </div>
